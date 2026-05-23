@@ -1,0 +1,277 @@
+% ======================================================================
+%  SIMC 2026 — TEMPLATES GUIDE
+%  Companion document for:
+%    • SIMC2026_Submission_10page.{tex,pdf}    (FINAL submission format)
+%    • SIMC2026_Preliminary_Detailed.{tex,pdf}  (internal working draft)
+%
+%  Team:  K. Vishnu Kumar  ·  Adithya Kesan Jayakanth  ·  Adithya Anand
+%  Date:  26 May 2026
+% ======================================================================
+
+\documentclass[11pt,a4paper]{article}
+
+\usepackage[a4paper, margin=2.0cm, headheight=14pt]{geometry}
+\usepackage{mathptmx}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath,amssymb,bm}
+\usepackage{graphicx}
+\usepackage{booktabs,tabularx,array}
+\usepackage{xcolor,colortbl}
+\usepackage{titlesec}
+\usepackage{fancyhdr}
+\usepackage{enumitem}
+\usepackage[hidelinks]{hyperref}
+\usepackage{microtype}
+\usepackage{tcolorbox}
+
+\definecolor{simcblue}{HTML}{0B3D5C}
+\definecolor{simcred}{HTML}{B22222}
+\definecolor{simcgreen}{HTML}{1F6B3A}
+\definecolor{simcgrey}{gray}{0.92}
+
+\linespread{1.10}
+\setlength{\parskip}{4pt}
+\setlength{\parindent}{0pt}
+
+\titleformat{\section}{\Large\bfseries\color{simcblue}}{\thesection.}{0.5em}{}
+\titleformat{\subsection}{\large\bfseries\color{simcblue}}{\thesubsection}{0.5em}{}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small\color{simcblue}SIMC 2026 · Templates Guide}
+\fancyhead[R]{\small \thepage}
+\fancyfoot[C]{\small Vishnu \textperiodcentered\ Adithya K.J. \textperiodcentered\ Adithya A.}
+\renewcommand{\headrulewidth}{0.4pt}
+
+\newtcolorbox{rulebox}{
+  colback=simcred!5, colframe=simcred!70, boxrule=0.6pt,
+  arc=2pt, left=6pt, right=6pt, top=4pt, bottom=4pt
+}
+\newtcolorbox{tipbox}{
+  colback=simcgreen!5, colframe=simcgreen!70, boxrule=0.6pt,
+  arc=2pt, left=6pt, right=6pt, top=4pt, bottom=4pt
+}
+\newtcolorbox{warnbox}{
+  colback=yellow!10, colframe=orange!80, boxrule=0.6pt,
+  arc=2pt, left=6pt, right=6pt, top=4pt, bottom=4pt
+}
+
+\title{\vspace{-1.6cm}\Huge\bfseries\color{simcblue}SIMC 2026 — Templates Guide\\[0.4em]
+\Large How to use the 10-page submission template and the detailed preliminary template}
+\author{K.\ Vishnu Kumar \and Adithya Kesan Jayakanth \and Adithya Anand}
+\date{26 May 2026}
+
+\begin{document}
+\maketitle
+\thispagestyle{empty}
+
+\tableofcontents
+\bigskip
+\hrule
+
+% =====================================================================
+\section{What this folder contains}
+
+\begin{tabularx}{\linewidth}{@{}p{0.42\linewidth}X@{}}
+\toprule
+\textbf{File} & \textbf{Purpose} \\
+\midrule
+\texttt{SIMC2026\_Submission\_10page.tex}     & LaTeX source — the FINAL submission format. \\
+\texttt{SIMC2026\_Submission\_10page.pdf}     & Compiled blank-template PDF for visual reference. \\
+\texttt{SIMC2026\_Preliminary\_Detailed.tex}  & LaTeX source — the working draft with all the depth. \\
+\texttt{SIMC2026\_Preliminary\_Detailed.pdf}  & Compiled blank preliminary PDF for visual reference. \\
+\texttt{SIMC2026\_Templates\_Guide.tex / .pdf}& This guide. \\
+\bottomrule
+\end{tabularx}
+
+\bigskip
+\textbf{All \texttt{.tex} files are plain UTF-8 LaTeX source — open them in any text editor and copy.} Compile with \texttt{pdflatex} (twice for the preliminary template so the table of contents resolves).
+
+% =====================================================================
+\section{Hard rules from the official SIMC 2026 instructions}
+
+The constraints below come from \emph{Instructions to Participants 2026 — Endeavour Track}, p.~12. They are non-negotiable; anything outside them is binned by the judges.
+
+\begin{rulebox}
+\begin{itemize}[leftmargin=*, itemsep=2pt]
+\item \textbf{Report PDF only.} English, $\leq$\,10 pages \emph{including annexes and appendices}. Anything past page 10 is not considered.
+\item \textbf{12 pt Times New Roman, single line spacing.}
+\item \textbf{No cover page.} The title and authors must appear inline at the top of page 1.
+\item \textbf{Math and code must be shown clearly.}
+\item \textbf{Filename:} \texttt{SIMC<ID>\_<schoolAbbr>.pdf} (e.g.\ \texttt{SIMC00\_XYZ.pdf}).
+\item \textbf{Deadline:} 27 May 2026, 1500 SGT. Plan your upload by 14:00 — anything later is penalised.
+\item \textbf{Two more files alongside the report:} a Jupyter notebook (\texttt{.ipynb}) with source + outputs, and a PDF/DOC log of AI prompts and responses (if any).
+\end{itemize}
+\end{rulebox}
+
+% =====================================================================
+\section{Workflow: how the two templates fit together}
+
+\begin{tipbox}
+\textbf{Rule of thumb.} Draft into the preliminary template first; distil into the 10-page template second; harvest the cut material for the oral presentation third.
+\end{tipbox}
+
+\begin{enumerate}[leftmargin=*]
+\item \textbf{During the modelling sprint (26–27 May)} — write into \texttt{SIMC2026\_Preliminary\_Detailed.tex}. Capture everything: derivations, dead ends, sensitivity sweeps, alternative formulations, every diagnostic plot. Length is not the constraint here; \emph{completeness} is.
+
+\item \textbf{Before submission} — copy the strongest content into \texttt{SIMC2026\_Submission\_10page.tex}. The page budget below is the working contract.
+
+\item \textbf{Before the oral (28 May)} — go back to the preliminary draft. Every section you cut is fair game for the 15-minute talk and the 20-minute Q\&A. The judges will probe what is NOT in the 10-page report; the preliminary draft is your rehearsal script.
+\end{enumerate}
+
+% =====================================================================
+\section{Page budget for the 10-page submission (task-first layout)}
+
+The 10-page template puts the eight tasks first and drops anything that delays the judges from seeing the answers. There is \emph{no separate ``Restatement of the Challenge'' block} — each task carries its own italic restatement on the first line of its section. There is \emph{no bulleted headline-results list} in the Executive Summary — the summary is one paragraph; the per-task \textbf{Answer.} lines are the headline statements.
+
+\begin{tabularx}{\linewidth}{@{}p{0.34\linewidth}p{0.09\linewidth}X@{}}
+\toprule
+\textbf{Section} & \textbf{Pages} & \textbf{What it should contain} \\
+\midrule
+Title block (in-text)             & 0.08 & Title, three authors, school, team ID, date. \\
+1. Executive Summary              & 0.20 & One paragraph, six to eight lines. No bullet list. \\
+2. Assumptions \& Notation        & 0.30 & Two compact side-by-side tables + a two-line methodology paragraph. \\
+3–10. Tasks 1–8                   & 6.80 & $\approx$0.85 page each. Structure of every task is fixed: italic Restatement $\to$ \textbf{Answer.} $\to$ \textbf{Approach.} (math) $\to$ reserved plot box $\to$ figure caption $\to$ \textbf{Interpretation.} \\
+11. Exploratory Analyses          & 0.70 & Three labelled findings (E1 alternative / E2 robustness / E3 non-prescribed hypothesis), plus one small plot box. \\
+12. Validation, Sensitivity \& Conclusion & 0.85 & Validation paragraph + Sensitivity paragraph + Strengths/Limitations bullets + Conclusion paragraph — kept in one section to save vertical space. \\
+13. References                    & 0.30 & Numbered list. \\
+14. AI Usage Log                  & 0.20 & Three to five lines summarising AI use; full transcript ships as a separate file. \\
+\midrule
+\textbf{Total}                    & \textbf{$\approx$\,9.4} & Leaves a small buffer for figures or extra equations. \\
+\bottomrule
+\end{tabularx}
+
+\begin{warnbox}
+\textbf{Overshoot drill (task-first layout).} If the PDF spills past page 10, cut in this order: (1) Notation entries the body never re-uses; (2) one of the three exploratory subsections (keep two); (3) the figure on a task whose answer is purely analytical; (4) the Interpretation line on a task whose answer is self-evident from the equation; (5) References never cited in the body. Do \emph{not} cut Assumptions, the per-task \textbf{Answer.} lines, the Validation paragraph, or the AI Usage Log.
+\end{warnbox}
+
+% =====================================================================
+\section{Section-by-section content guide (10-page template)}
+
+\subsection*{1. Executive Summary}
+\textbf{What to write.} One tight paragraph (six to eight lines). Name the problem, the team's overall modelling approach, and the single most important number / decision the report defends. State whether all eight prescribed tasks are solved in full and whether any exploratory finding changes the headline answer.\\
+\textbf{Do NOT include.} A bullet list of T1--T8 results — those live in the per-task \textbf{Answer.} lines and would only duplicate them here.\\
+\textbf{Test.} A reader who reads only this paragraph plus the eight \textbf{Answer.} lines should be able to state the team's complete position on the challenge.
+
+\subsection*{2. Assumptions \& Notation}
+\textbf{What to write.} (i)~Assumptions table with 3--5 labelled entries (A1, A2, $\ldots$), each justified in one sentence. (ii)~Notation table with $\leq$\,8 symbols actually re-used in the body. (iii)~A two-line methodology paragraph naming the pipeline (data $\to$ preprocessing $\to$ modelling $\to$ validation) and major tools (Python, NumPy, pandas, NetworkX, scikit-learn, statsmodels, etc.). Call out any computational primitive shared between tasks.\\
+\textbf{Common mistake.} Listing every symbol that appears anywhere — the table is a glossary for the body, not the appendix.
+
+\subsection*{3--10. Tasks 1--8  (the heart of the report)}
+\textbf{Fixed structure per task} — every task block uses the same five elements, in the same order, so a judge can scan all eight in the same pattern:
+\begin{enumerate}[leftmargin=*, itemsep=0pt, topsep=2pt]
+\item \textit{Restatement.} One- or two-line italic line directly under the section heading, in the team's own words.
+\item \textbf{Answer.} The single number, expression, or decision that solves the task — bolded and front-loaded so the judges find it in $\leq$\,5 seconds.
+\item \textbf{Approach.} Two to three sentences of model + method, with one display equation for the core formulation. This is where most of the credit is earned.
+\item Reserved plot box + figure caption. Use \verb|\plotbox{}| with a placeholder; replace with \verb|\includegraphics{...}| once the figure exists. The caption must name the axes, name the colours, and state the takeaway.
+\item \textbf{Interpretation.} One or two sentences. What does the Answer mean in the language of the problem?
+\end{enumerate}
+\textbf{Tip.} If two tasks share a model or matrix, say so explicitly — it tells the judges the eight tasks form one coherent piece of work rather than eight unrelated exercises.\\
+\textbf{Common mistake.} Burying the headline number inside the derivation. Always lead with \textbf{Answer.}, derive afterwards.
+
+\subsection*{11. Exploratory Analyses}
+\textbf{What to write.} Three labelled findings: \textbf{E1} alternative formulation, \textbf{E2} robustness check, \textbf{E3} non-prescribed hypothesis. One small plot box at the end if useful.\\
+\textbf{Test.} Each finding ends with a stated conclusion — not just ``we tried X''.\\
+\textbf{Common mistake.} Treating exploratory work as filler. Champion reports always carry at least one finding the prompt did not ask for.
+
+\subsection*{12. Validation, Sensitivity \& Conclusion (one combined section)}
+\textbf{What to write.} Validation paragraph (\emph{how} each headline number was tested — cross-validation, FWER control, Monte-Carlo, theoretical bound), sensitivity paragraph (stability under parameter / threshold perturbations), strengths bullets (2), limitations bullets (2), and a one-paragraph conclusion that ties the eight tasks together.\\
+\textbf{Tip.} A compact 4-column table — \emph{Quantity / Method / Result / Sensitivity} — saves vertical space in the Validation paragraph.\\
+\textbf{Common mistake.} Padding Limitations with non-limitations (``we could have used more data'' is always true and tells judges nothing). Be specific.
+
+\subsection*{13. References}
+\textbf{What to write.} Numbered list, IEEE-style or similar. Cite only what is actually referenced in the body. Prior SIMC champion reports (2022, 2024) are fair game if the team has read them.
+
+\subsection*{14. AI Usage Log}
+\textbf{What to write.} Three to five lines: name the AI assistants used, name the parts they helped with (literature recall, code skeletons, derivation checking, prose tightening), and name the parts the team did unaided (final modelling decisions, validation numbers, written interpretation).\\
+\textbf{Important.} The full prompt-and-response transcript ships as a \emph{separate} file alongside the report (\texttt{SIMC<ID>\_<schoolAbbr>\_ailog.pdf} in PDF or DOC), as required by the official Instructions to Participants 2026. This in-report section is the index, not the log itself.
+
+% =====================================================================
+\section{Section-by-section content guide (preliminary template)}
+
+The preliminary template (\texttt{SIMC2026\_Preliminary\_Detailed.tex}) has the same skeleton plus everything below. Use it as a project notebook.
+
+\subsection*{Sections present in the preliminary template only}
+\begin{itemize}[leftmargin=*]
+\item \textbf{Literature \& Prior Art} — graph theory / statistics / optimisation background, plus a paragraph on what the 2022 and 2024 champion reports did well.
+\item \textbf{Data section (5 subsections)} — provenance, schema, preprocessing, integrity checks, exploratory summaries.
+\item \textbf{Methodology Framework} — pipeline, software stack, reproducibility, performance.
+\item \textbf{Per-task subsections} — Objective / Formulation / Derivation / Algorithm / Validation / Results / Interpretation / Discussion (for Q\&A).
+\item \textbf{Cross-Task Synthesis} — what the eight tasks together imply that no single task does.
+\item \textbf{Failure mode analysis} — cases where the model gives an absurd answer.
+\item \textbf{Validation \& Verification} — synthetic data tests, cross-method agreement, external benchmarks.
+\item \textbf{Recommendations \& Future Work}.
+\item \textbf{Appendices A–E} — full derivations, pseudocode, data tables, additional figures, code listings, AI-prompt summary.
+\end{itemize}
+
+\begin{tipbox}
+\textbf{Mapping from preliminary to submission.} For every preliminary section, decide before you cut: \emph{is its conclusion already implied by the headline number in the corresponding task block?} If yes, cut it from the 10-page report and keep it for the oral. If no, distil it into one or two sentences in the appropriate 10-page section.
+\end{tipbox}
+
+% =====================================================================
+\section{Oral-presentation reservoir (28 May)}
+
+The preliminary draft IS the rehearsal script. When trimming for the 10-page report, tag the cut paragraphs with one of the four labels below; build the slide deck and Q\&A flashcards from them.
+
+\begin{tabularx}{\linewidth}{@{}p{0.20\linewidth}X@{}}
+\toprule
+\textbf{Tag} & \textbf{Use in the oral} \\
+\midrule
+\texttt{\#derivation} & Show on a slide when a judge asks ``how did you arrive at this?'' \\
+\texttt{\#robustness} & Bring up when a judge probes a borderline assumption. \\
+\texttt{\#alternative} & ``We also considered $\ldots$; here's why we chose the one in the report.'' \\
+\texttt{\#failure}    & Show that the team knows where the model breaks. \\
+\bottomrule
+\end{tabularx}
+
+\textbf{Format reminder.} 15 minutes to present, 20 minutes Q\&A. Plan roughly 1 slide per minute of presentation, plus a Q\&A appendix deck of 8–12 backup slides drawn from the tagged paragraphs above.
+
+% =====================================================================
+\section{Submission checklist (27 May 2026)}
+
+\begin{tipbox}
+\textbf{Before 1400 SGT.} Compile the final 10-page PDF, sanity-check page count, run the spell-check, verify the file name pattern, then upload to Coursemology.
+\end{tipbox}
+
+\begin{enumerate}[leftmargin=*, itemsep=2pt]
+\item PDF is exactly Times New Roman 12pt, single-spaced, no cover page.
+\item Page count $\leq$\,10 including any appendix.
+\item All math and code symbols render correctly (open the PDF on a different machine to check fonts).
+\item Filename matches \texttt{SIMC<ID>\_<schoolAbbr>.pdf}.
+\item Jupyter notebook submitted alongside, runs end-to-end on a clean kernel.
+\item Notebook filename matches \texttt{SIMC<ID>\_<schoolAbbr>.ipynb}.
+\item AI prompt log (if used) attached as PDF/DOC with matching filename.
+\item Inside Coursemology, click \textbf{Submit} \emph{then} \textbf{Finalise all answers} — the report is not actually submitted until ``Finalise''.
+\item Verify the status page shows ``Submitted''.
+\end{enumerate}
+
+% =====================================================================
+\section{Compiling the templates}
+
+From a terminal in this folder:
+
+\begin{verbatim}
+pdflatex SIMC2026_Submission_10page.tex
+pdflatex SIMC2026_Preliminary_Detailed.tex
+pdflatex SIMC2026_Preliminary_Detailed.tex   % twice — resolves TOC
+pdflatex SIMC2026_Templates_Guide.tex
+pdflatex SIMC2026_Templates_Guide.tex
+\end{verbatim}
+
+MiKTeX will auto-install any missing packages on first run. If a judge's machine renders the submitted PDF differently, the issue is almost always font embedding — re-export with \texttt{pdflatex} (\emph{not} a Word ``Save as PDF'') to guarantee fonts are embedded.
+
+% =====================================================================
+\section{Common pitfalls to avoid}
+
+\begin{warnbox}
+\begin{itemize}[leftmargin=*, itemsep=2pt]
+\item \textbf{Using a cover page.} The instructions explicitly forbid one — it counts as a wasted page.
+\item \textbf{Forgetting that appendices count toward 10.} The 10-page cap is total.
+\item \textbf{Writing the report in Word.} Maths typesets badly, font embedding is fragile, and reproducible page-count is hard. Stick with LaTeX.
+\item \textbf{Submitting the preliminary file by mistake.} It has the watermark ``NOT FOR SUBMISSION'' on its title page exactly for this reason.
+\item \textbf{Leaving placeholder \texttt{\textbackslash ph\{\ldots\}} text in the final PDF.} A grep for \texttt{ph\{} in the compiled .tex catches all of them. The grey italic style also makes them visible in the PDF.
+\item \textbf{Bringing exploratory work into the oral that contradicts the 10-page report.} Either fix the report or drop the contradicting bit from the talk. Judges read both.
+\end{itemize}
+\end{warnbox}
+
+\end{document}

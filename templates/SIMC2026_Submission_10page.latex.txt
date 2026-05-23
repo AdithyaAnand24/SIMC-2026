@@ -1,0 +1,337 @@
+% ======================================================================
+%  SIMC 2026  —  10-PAGE SUBMISSION REPORT TEMPLATE  (Task-first format)
+%  Endeavour Track  ·  Singapore International Mathematical and
+%  Computational Modelling Challenge
+%
+%  HARD FORMAT RULES  (Instructions to Participants 2026, p. 12):
+%    • 12 pt Times New Roman, single line spacing, English, A4
+%    • NO cover page
+%    • ≤ 10 pages INCLUDING annexes / appendices
+%    • all math and code shown clearly
+%    • filename:  SIMC<ID>_<schoolAbbr>.pdf
+%    • deadline:  27 May 2026, 1500 SGT
+%
+%  Team:  K. Vishnu Kumar  ·  Adithya Kesan Jayakanth  ·  Adithya Anand
+%  Date:  26 May 2026
+% ======================================================================
+
+\documentclass[12pt,a4paper]{article}
+
+\usepackage[a4paper, margin=1.9cm, headheight=14pt, headsep=8pt, footskip=14pt]{geometry}
+\usepackage{mathptmx}                  % Times for text + math
+\usepackage[T1]{fontenc}
+\usepackage{amsmath,amssymb,amsthm,bm}
+\usepackage{graphicx}
+\usepackage{booktabs,tabularx,array}
+\usepackage{xcolor}
+\usepackage{titlesec}
+\usepackage{fancyhdr}
+\usepackage{enumitem}
+\usepackage[hidelinks]{hyperref}
+\usepackage{caption}
+\usepackage{microtype}
+
+% --- Single-line spacing, tight section spacing -----------------------
+\linespread{1.0}
+\titlespacing*{\section}{0pt}{0.7\baselineskip}{0.2\baselineskip}
+\titlespacing*{\subsection}{0pt}{0.45\baselineskip}{0.1\baselineskip}
+\titleformat{\section}{\large\bfseries}{\thesection.}{0.5em}{}
+\titleformat{\subsection}{\normalsize\bfseries}{\thesubsection}{0.5em}{}
+
+\setlength{\parskip}{3pt}
+\setlength{\parindent}{0pt}
+
+% --- Header / footer --------------------------------------------------
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\footnotesize SIMC 2026 · Endeavour Track}
+\fancyhead[R]{\footnotesize Page \thepage{} of 10}
+\fancyfoot[C]{\footnotesize Team [INSERT TEAM ID]}
+\renewcommand{\headrulewidth}{0.4pt}
+
+% --- Placeholder + plot-box helpers -----------------------------------
+\definecolor{phgray}{gray}{0.45}
+\newcommand{\ph}[1]{\textit{\textcolor{phgray}{#1}}}
+% Math-mode-safe placeholder: use inside \[ \] or $ $
+\newcommand{\phm}[1]{\text{\itshape\color{phgray}#1}}
+
+% Reserved figure box.  Usage:  \plotbox[height]{placeholder caption text}
+\newcommand{\plotbox}[2][3.4cm]{%
+  \begin{center}%
+    \fbox{\begin{minipage}[c][#1][c]{0.66\linewidth}\centering%
+      \ph{#2}%
+    \end{minipage}}%
+  \end{center}%
+}
+
+% Per-task captioning so the user can drop \includegraphics in place
+\captionsetup[figure]{labelfont=bf, font=small, skip=2pt}
+
+% Compact answer + label macros
+\newcommand{\answerlabel}{\textbf{Answer.~}}
+\newcommand{\approachlabel}{\textbf{Approach.~}}
+\newcommand{\interplabel}{\textbf{Interpretation.~}}
+
+\begin{document}
+
+% ======================================================================
+%  IN-TEXT TITLE BLOCK  (no cover page)
+% ======================================================================
+\begin{center}
+{\Large\bfseries [INSERT REPORT TITLE]\par}
+\vspace{0.15em}
+{\normalsize K.\ Vishnu Kumar \ \textperiodcentered\ Adithya Kesan Jayakanth \ \textperiodcentered\ Adithya Anand\par}
+\vspace{0.05em}
+{\small [School Name] \ \textperiodcentered\ Team ID: [INSERT TEAM ID] \ \textperiodcentered\ 26 May 2026\par}
+\end{center}
+\noindent\rule{\linewidth}{0.4pt}
+
+% ======================================================================
+%  1.  EXECUTIVE SUMMARY  (paragraph only, ~6–7 lines, no bullet list)
+% ======================================================================
+\section{Executive Summary}
+\ph{One tight paragraph (six to eight lines). Name the problem, the team's overall modelling approach, and the single most important number / decision the report defends. State whether the eight prescribed tasks are solved in full and whether any exploratory finding changes the headline answer. Do not enumerate task-by-task here — that is what Sections 3--10 are for. Do not restate the prompt verbatim; the judges already know it.}
+
+% ======================================================================
+%  2.  ASSUMPTIONS & NOTATION  (one short section, two compact tables)
+% ======================================================================
+\section{Assumptions \& Notation}
+\noindent
+\begin{minipage}[t]{0.48\linewidth}
+\textbf{Key assumptions} \\[2pt]
+\begin{tabularx}{\linewidth}{@{}p{0.12\linewidth}X@{}}
+\toprule
+\textbf{} & \textbf{Statement \& justification} \\
+\midrule
+A1 & \ph{Short statement — one-line justification.} \\
+A2 & \ph{...} \\
+A3 & \ph{...} \\
+A4 & \ph{...} \\
+\bottomrule
+\end{tabularx}
+\end{minipage}\hfill
+\begin{minipage}[t]{0.48\linewidth}
+\textbf{Notation} \\[2pt]
+\begin{tabularx}{\linewidth}{@{}p{0.18\linewidth}X@{}}
+\toprule
+\textbf{Symbol} & \textbf{Meaning} \\
+\midrule
+$n,\,N$        & \ph{sample / population size} \\
+$\bm{x}_i$     & \ph{feature vector for unit $i$} \\
+$S_{ij}$       & \ph{pairwise similarity / score} \\
+$\alpha$       & \ph{significance threshold} \\
+$\hat{\theta}$ & \ph{parameter estimate} \\
+\bottomrule
+\end{tabularx}
+\end{minipage}
+
+\textbf{Methodology in two lines.} \ph{State the pipeline (data $\to$ preprocessing $\to$ modelling $\to$ validation) and name the major tools (Python 3, NumPy, pandas, NetworkX, scikit-learn, statsmodels, etc.). Note any computational primitive reused across tasks (e.g.\ ``$S$ defined here is reused in T2, T4, T7'').}
+
+% ======================================================================
+%  3.  TASK 1
+% ======================================================================
+\section{Task 1: \ph{[short title]}}
+\textit{\ph{One- or two-line restatement in the team's own words — what is being asked.}}
+
+\answerlabel\ph{The single number, choice, or expression that solves Task 1, bolded so a judge can find it in five seconds. Underline if needed.}
+
+\approachlabel\ph{The model and method in compressed form. Use display math for the core equation:}
+\[
+  \hat{\theta} \;=\; \arg\min_{\theta} \sum_i \ell\!\left(y_i,\, f_\theta(\bm{x}_i)\right)
+  \qquad \phm{(replace with the actual model)}
+\]
+\ph{Two or three sentences of derivation / algorithm sketch — only the steps without which the answer is unjustified.}
+
+\plotbox{[plot for Task 1 — replace this box with \texttt{\textbackslash includegraphics[width=0.65\textbackslash linewidth]\{fig\_t1.pdf\}}]}
+\captionof{figure}{\ph{[Caption — name what the axes are, what the colours mean, and the takeaway the reader should leave with.]}}
+
+\interplabel\ph{One or two sentences. What does the Answer mean in the language of the problem? What changes about the team's understanding of the challenge because of this result?}
+
+% ======================================================================
+%  4.  TASK 2
+% ======================================================================
+\section{Task 2: \ph{[short title]}}
+\textit{\ph{One- or two-line restatement.}}
+
+\answerlabel\ph{Headline result.}
+
+\approachlabel\ph{Model + brief derivation.}
+\[
+  \phm{[insert the core model equation here]}
+\]
+\ph{Brief justification or algorithm sketch.}
+
+\plotbox{[plot for Task 2]}
+\captionof{figure}{\ph{[Caption.]}}
+
+\interplabel\ph{Meaning in the domain.}
+
+% ======================================================================
+%  5.  TASK 3
+% ======================================================================
+\section{Task 3: \ph{[short title]}}
+\textit{\ph{Restatement.}}
+
+\answerlabel\ph{Headline result.}
+
+\approachlabel\ph{Model + brief derivation.}
+\[
+  \phm{[insert the core model equation here]}
+\]
+\ph{Brief justification or algorithm sketch.}
+
+\plotbox{[plot for Task 3]}
+\captionof{figure}{\ph{[Caption.]}}
+
+\interplabel\ph{Meaning in the domain.}
+
+% ======================================================================
+%  6.  TASK 4
+% ======================================================================
+\section{Task 4: \ph{[short title]}}
+\textit{\ph{Restatement.}}
+
+\answerlabel\ph{Headline result.}
+
+\approachlabel\ph{Model + brief derivation.}
+\[
+  \phm{[insert the core model equation here]}
+\]
+\ph{Brief justification or algorithm sketch.}
+
+\plotbox{[plot for Task 4]}
+\captionof{figure}{\ph{[Caption.]}}
+
+\interplabel\ph{Meaning in the domain.}
+
+% ======================================================================
+%  7.  TASK 5
+% ======================================================================
+\section{Task 5: \ph{[short title]}}
+\textit{\ph{Restatement.}}
+
+\answerlabel\ph{Headline result.}
+
+\approachlabel\ph{Model + brief derivation.}
+\[
+  \phm{[insert the core model equation here]}
+\]
+\ph{Brief justification or algorithm sketch.}
+
+\plotbox{[plot for Task 5]}
+\captionof{figure}{\ph{[Caption.]}}
+
+\interplabel\ph{Meaning in the domain.}
+
+% ======================================================================
+%  8.  TASK 6
+% ======================================================================
+\section{Task 6: \ph{[short title]}}
+\textit{\ph{Restatement.}}
+
+\answerlabel\ph{Headline result.}
+
+\approachlabel\ph{Model + brief derivation.}
+\[
+  \phm{[insert the core model equation here]}
+\]
+\ph{Brief justification or algorithm sketch.}
+
+\plotbox{[plot for Task 6]}
+\captionof{figure}{\ph{[Caption.]}}
+
+\interplabel\ph{Meaning in the domain.}
+
+% ======================================================================
+%  9.  TASK 7
+% ======================================================================
+\section{Task 7: \ph{[short title]}}
+\textit{\ph{Restatement.}}
+
+\answerlabel\ph{Headline result.}
+
+\approachlabel\ph{Model + brief derivation.}
+\[
+  \phm{[insert the core model equation here]}
+\]
+\ph{Brief justification or algorithm sketch.}
+
+\plotbox{[plot for Task 7]}
+\captionof{figure}{\ph{[Caption.]}}
+
+\interplabel\ph{Meaning in the domain.}
+
+% ======================================================================
+%  10.  TASK 8
+% ======================================================================
+\section{Task 8: \ph{[short title]}}
+\textit{\ph{Restatement.}}
+
+\answerlabel\ph{Headline result.}
+
+\approachlabel\ph{Model + brief derivation.}
+\[
+  \phm{[insert the core model equation here]}
+\]
+\ph{Brief justification or algorithm sketch.}
+
+\plotbox{[plot for Task 8]}
+\captionof{figure}{\ph{[Caption.]}}
+
+\interplabel\ph{Meaning in the domain.}
+
+% ======================================================================
+%  11.  EXPLORATORY ANALYSES
+% ======================================================================
+\section{Exploratory Analyses}
+Findings produced \emph{beyond} the eight prescribed tasks.
+
+\textbf{E1. Alternative formulation.} \ph{One reformulation that produced a meaningfully different answer or sharper insight — what was reformulated, and what it told us.}
+
+\textbf{E2. Robustness checks.} \ph{Behaviour when A1--A4 are relaxed; perturbation of key inputs; what stayed stable and what did not.}
+
+\textbf{E3. Non-prescribed hypothesis.} \ph{One question the team asked of the data that the prompt did not ask — with the evidence for / against. Useful ammunition for the Q\&A.}
+
+\plotbox[2.5cm]{[exploratory plot — e.g.\ robustness sweep or alternative-model overlay]}
+\captionof{figure}{\ph{[Caption.]}}
+
+% ======================================================================
+%  12.  VALIDATION, SENSITIVITY & CONCLUSION
+% ======================================================================
+\section{Validation, Sensitivity \& Conclusion}
+
+\textbf{Validation.} \ph{One short paragraph: how each headline number was validated (cross-validation, held-out set, theoretical bound, FWER control, Monte-Carlo simulation). Where two methods could attack the same task, did they agree?}
+
+\textbf{Sensitivity.} \ph{How stable the answers are under parameter / threshold perturbations.}
+
+\textbf{Strengths.}
+\begin{itemize}[leftmargin=*, itemsep=0pt, topsep=1pt]
+\item \ph{What this approach does that an obvious baseline does not.}
+\item \ph{...}
+\end{itemize}
+
+\textbf{Limitations.}
+\begin{itemize}[leftmargin=*, itemsep=0pt, topsep=1pt]
+\item \ph{Where the model breaks; data we did not have; assumptions we could not verify.}
+\item \ph{...}
+\end{itemize}
+
+\textbf{Conclusion.} \ph{One paragraph: what the eight tasks taken together answer; what the exploratory work added; what we would do with one more week.}
+
+% ======================================================================
+%  13.  REFERENCES
+% ======================================================================
+\section{References}
+\begin{enumerate}[leftmargin=*, label={[\arabic*]}, itemsep=0pt, topsep=1pt]
+\item \ph{Author, Title, Venue, Year. URL or DOI.}
+\item \ph{...}
+\item \ph{...}
+\end{enumerate}
+
+% ======================================================================
+%  14.  AI USAGE LOG
+% ======================================================================
+\section{AI Usage Log}
+\ph{Brief summary, three to five lines. Name the AI assistants used (e.g.\ Claude Opus 4.7, ChatGPT 5), the tasks for which they were used (literature recall, code skeletons, derivation checking, prose tightening, etc.), and the tasks for which they were \emph{not} used (final modelling decisions, validation numbers, written interpretation). The complete prompt-and-response transcript is submitted as a separate file alongside this report (\texttt{SIMC[ID]\_[schoolAbbr]\_ailog.pdf}), as required by the official Instructions to Participants 2026.}
+
+\end{document}

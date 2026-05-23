@@ -1,0 +1,403 @@
+% ======================================================================
+%  SIMC 2026 — PRELIMINARY (WORKING) DETAILED REPORT TEMPLATE
+%  Endeavour Track  ·  INTERNAL USE — not for submission
+%
+%  Purpose:  Capture EVERYTHING during the modelling sprint.  Distil into
+%  the 10-page submission template (SIMC2026_Submission_10page.tex) before
+%  the 27 May 2026 1500 SGT deadline.  The excess material is the oral
+%  presentation / Q&A reservoir.
+%
+%  Team:   K. Vishnu Kumar  ·  Adithya Kesan Jayakanth  ·  Adithya Anand
+%  Date:   26 May 2026
+% ======================================================================
+
+\documentclass[12pt,a4paper]{article}
+
+\usepackage[a4paper, margin=2.0cm, headheight=14pt]{geometry}
+\usepackage{mathptmx}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath,amssymb,amsthm,bm,mathtools}
+\usepackage{graphicx}
+\usepackage{booktabs,tabularx,array,longtable}
+\usepackage{xcolor}
+\usepackage{titlesec}
+\usepackage{fancyhdr}
+\usepackage{enumitem}
+\usepackage[hidelinks]{hyperref}
+\usepackage{caption}
+\usepackage{microtype}
+\usepackage{listings}
+
+\linespread{1.10}
+\setlength{\parskip}{5pt}
+\setlength{\parindent}{0pt}
+
+\titleformat{\section}{\Large\bfseries}{\thesection.}{0.5em}{}
+\titleformat{\subsection}{\large\bfseries}{\thesubsection}{0.5em}{}
+\titleformat{\subsubsection}{\normalsize\bfseries\itshape}{\thesubsubsection}{0.5em}{}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small SIMC 2026 · Preliminary Working Report (internal draft)}
+\fancyhead[R]{\small \thepage}
+\fancyfoot[C]{\small Vishnu \textperiodcentered\ Adithya K.J. \textperiodcentered\ Adithya A.}
+\renewcommand{\headrulewidth}{0.4pt}
+
+\definecolor{phgray}{gray}{0.45}
+\newcommand{\ph}[1]{\textit{\textcolor{phgray}{#1}}}
+
+\lstset{
+  basicstyle=\ttfamily\small,
+  breaklines=true,
+  frame=single,
+  rulecolor=\color{black!30},
+  numbers=left,
+  numberstyle=\tiny\color{black!50},
+  language=Python,
+  showstringspaces=false,
+}
+
+\title{\vspace{-1.8cm}\Huge\bfseries [INSERT REPORT TITLE]\\[0.5em]
+\Large Preliminary Working Report \,—\, Internal Draft}
+\author{K.\ Vishnu Kumar \and Adithya Kesan Jayakanth \and Adithya Anand}
+\date{26 May 2026\\[0.3em]\small [School Name] \ \textperiodcentered\ Team ID: [INSERT TEAM ID]\\[0.2em]\small\itshape NOT FOR SUBMISSION — distil into the 10-page template before 27 May 1500 SGT}
+
+\begin{document}
+\maketitle
+\thispagestyle{empty}
+
+\tableofcontents
+\newpage
+
+% =====================================================================
+%  1.  EXECUTIVE SUMMARY
+% =====================================================================
+\section{Executive Summary}
+\ph{Three short paragraphs: (i) the problem; (ii) approach taken; (iii) headline findings. Same content as the 10-page version but written first here, so the distillation is easier.}
+
+\textbf{Headline results.}
+\begin{itemize}[leftmargin=*, itemsep=1pt]
+\item \textbf{T1.} \ph{...}
+\item \textbf{T2.} \ph{...}
+\item \textbf{T3.} \ph{...}
+\item \textbf{T4.} \ph{...}
+\item \textbf{T5.} \ph{...}
+\item \textbf{T6.} \ph{...}
+\item \textbf{T7.} \ph{...}
+\item \textbf{T8.} \ph{...}
+\item \textbf{Exploratory.} \ph{...}
+\end{itemize}
+
+% =====================================================================
+%  2.  INTRODUCTION
+% =====================================================================
+\section{Introduction}
+\subsection{Background and context}
+\ph{Several paragraphs: the broader topic, recent developments, why the question matters.}
+
+\subsection{Motivation}
+\ph{Why this challenge framing is interesting; the gap between the prescribed eight tasks and the underlying scientific / engineering question.}
+
+\subsection{Scope of this report}
+\ph{What is and is not addressed. Mention items deliberately deferred to Future Work.}
+
+\subsection{Structure of this report}
+\ph{Section-by-section map for readers; mirrors the table of contents.}
+
+% =====================================================================
+%  3.  PROBLEM STATEMENT
+% =====================================================================
+\section{Problem Statement}
+\subsection{Verbatim challenge restatement}
+\ph{Copy the problem prompt; mark any ambiguities clarified in the Coursemology forum on 26 May 0930–1200.}
+
+\subsection{Decomposition into the eight tasks}
+\begin{enumerate}[leftmargin=*, label=\textbf{T\arabic*.}]
+\item \ph{Task 1 — full statement.}
+\item \ph{Task 2 — full statement.}
+\item \ph{Task 3 — full statement.}
+\item \ph{Task 4 — full statement.}
+\item \ph{Task 5 — full statement.}
+\item \ph{Task 6 — full statement.}
+\item \ph{Task 7 — full statement.}
+\item \ph{Task 8 — full statement.}
+\end{enumerate}
+
+\subsection{Success criteria}
+\ph{For each task, what counts as a complete answer (a number, a procedure, a recommendation, a proof, etc.). Useful for the team to align early.}
+
+% =====================================================================
+%  4.  LITERATURE & PRIOR ART
+% =====================================================================
+\section{Literature \& Prior Art}
+\subsection{Mathematical foundations}
+\ph{The mathematical objects this challenge sits on — graph theory, statistics, optimisation, dynamical systems, etc. — with the key references.}
+
+\subsection{Comparable challenges and prior champion reports}
+\ph{What did the 2022 and 2024 champion reports do well? What patterns repeat across past SIMC problems? Cite \texttt{SIMC-Report-2022-Champion.pdf} and \texttt{SIMC2\_0\_Champion\_Report\_2024.pdf}.}
+
+\subsection{Implementation libraries surveyed}
+\ph{Short list of candidate Python libraries considered for each major step, with the choice and rationale.}
+
+% =====================================================================
+%  5.  ASSUMPTIONS
+% =====================================================================
+\section{Assumptions}
+\subsection{Modelling assumptions}
+\ph{Stationarity, independence, linearity, Gaussianity, etc. State each, mark its role, and rate confidence.}
+
+\subsection{Data assumptions}
+\ph{Schema, missingness, error structure, time ordering, etc.}
+
+\subsection{Computational assumptions}
+\ph{Numerical precision, convergence tolerances, random seeds, parallelism.}
+
+\subsection{Justification table}
+\begin{tabularx}{\linewidth}{@{}p{0.18\linewidth}p{0.28\linewidth}Xc@{}}
+\toprule
+\textbf{Label} & \textbf{Assumption} & \textbf{Justification} & \textbf{Conf.} \\
+\midrule
+A1 & \ph{...} & \ph{...} & \ph{H/M/L} \\
+A2 & \ph{...} & \ph{...} & \ph{H/M/L} \\
+A3 & \ph{...} & \ph{...} & \ph{H/M/L} \\
+A4 & \ph{...} & \ph{...} & \ph{H/M/L} \\
+\bottomrule
+\end{tabularx}
+
+% =====================================================================
+%  6.  NOTATION & DEFINITIONS
+% =====================================================================
+\section{Notation \& Definitions}
+\subsection{Symbols}
+\begin{tabularx}{\linewidth}{@{}p{0.18\linewidth}X@{}}
+\toprule
+\textbf{Symbol} & \textbf{Meaning} \\
+\midrule
+$n,\, N$       & \ph{sample / population sizes} \\
+$\bm{x}_i$     & \ph{feature vector for unit $i$} \\
+$\bm{y}$       & \ph{response vector} \\
+$S_{ij}$       & \ph{pairwise similarity} \\
+$\alpha$       & \ph{significance threshold} \\
+$\hat{\theta}$ & \ph{parameter estimate} \\
+\bottomrule
+\end{tabularx}
+
+\subsection{Domain definitions}
+\ph{Define every domain term the problem uses (and the team uses) before its first appearance in the analysis sections.}
+
+\subsection{Statistical conventions}
+\ph{Hypothesis test conventions, multiple-comparison corrections (Bonferroni, BH, FWER), confidence interval method, bootstrap conventions.}
+
+% =====================================================================
+%  7.  DATA
+% =====================================================================
+\section{Data}
+\subsection{Source and provenance}
+\ph{Where the data came from, when it was supplied, in what format.}
+
+\subsection{Schema}
+\ph{Column-by-column description with types, ranges, units.}
+
+\subsection{Preprocessing}
+\ph{Cleaning, imputation, normalisation, deduplication — every step that could change a downstream result.}
+
+\subsection{Quality and integrity checks}
+\ph{Row counts, hash, null patterns, outlier inventory.}
+
+\subsection{Exploratory data summaries}
+\ph{Headline summary statistics, key visualisations, anything surprising before modelling started.}
+
+% =====================================================================
+%  8.  METHODOLOGY FRAMEWORK
+% =====================================================================
+\section{Methodology Framework}
+\subsection{Pipeline overview}
+\ph{End-to-end diagram or bullet list: ingest $\to$ preprocess $\to$ model$_k$ $\to$ validate $\to$ report.}
+
+\subsection{Software stack}
+\ph{Python version, key libraries with versions, OS, hardware.}
+
+\subsection{Reproducibility}
+\ph{Random seeds, deterministic operations, how to re-run from the .ipynb in one command.}
+
+\subsection{Performance considerations}
+\ph{Where the bottleneck is, how it was handled (vectorisation, parallelism, sparse representations, etc.).}
+
+% =====================================================================
+%  9–16.  TASKS 1–8  — full treatment per task
+% =====================================================================
+\section{Task 1 \ph{— [title]}}
+\subsection{Objective}\ph{...}
+\subsection{Mathematical formulation}\ph{...}
+\subsection{Derivation}\ph{...}
+\subsection{Algorithm and implementation}\ph{...}
+\subsection{Validation strategy}\ph{...}
+\subsection{Results}\ph{...}
+\subsection{Interpretation}\ph{...}
+\subsection{Discussion (for Q\&A)}\ph{Edge cases, alternative readings, anticipated judge questions.}
+
+\section{Task 2 \ph{— [title]}}
+\subsection{Objective}\ph{...}
+\subsection{Mathematical formulation}\ph{...}
+\subsection{Derivation}\ph{...}
+\subsection{Algorithm and implementation}\ph{...}
+\subsection{Validation strategy}\ph{...}
+\subsection{Results}\ph{...}
+\subsection{Interpretation}\ph{...}
+\subsection{Discussion (for Q\&A)}\ph{...}
+
+\section{Task 3 \ph{— [title]}}
+\subsection{Objective}\ph{...}
+\subsection{Mathematical formulation}\ph{...}
+\subsection{Derivation}\ph{...}
+\subsection{Algorithm and implementation}\ph{...}
+\subsection{Validation strategy}\ph{...}
+\subsection{Results}\ph{...}
+\subsection{Interpretation}\ph{...}
+\subsection{Discussion (for Q\&A)}\ph{...}
+
+\section{Task 4 \ph{— [title]}}
+\subsection{Objective}\ph{...}
+\subsection{Mathematical formulation}\ph{...}
+\subsection{Derivation}\ph{...}
+\subsection{Algorithm and implementation}\ph{...}
+\subsection{Validation strategy}\ph{...}
+\subsection{Results}\ph{...}
+\subsection{Interpretation}\ph{...}
+\subsection{Discussion (for Q\&A)}\ph{...}
+
+\section{Task 5 \ph{— [title]}}
+\subsection{Objective}\ph{...}
+\subsection{Mathematical formulation}\ph{...}
+\subsection{Derivation}\ph{...}
+\subsection{Algorithm and implementation}\ph{...}
+\subsection{Validation strategy}\ph{...}
+\subsection{Results}\ph{...}
+\subsection{Interpretation}\ph{...}
+\subsection{Discussion (for Q\&A)}\ph{...}
+
+\section{Task 6 \ph{— [title]}}
+\subsection{Objective}\ph{...}
+\subsection{Mathematical formulation}\ph{...}
+\subsection{Derivation}\ph{...}
+\subsection{Algorithm and implementation}\ph{...}
+\subsection{Validation strategy}\ph{...}
+\subsection{Results}\ph{...}
+\subsection{Interpretation}\ph{...}
+\subsection{Discussion (for Q\&A)}\ph{...}
+
+\section{Task 7 \ph{— [title]}}
+\subsection{Objective}\ph{...}
+\subsection{Mathematical formulation}\ph{...}
+\subsection{Derivation}\ph{...}
+\subsection{Algorithm and implementation}\ph{...}
+\subsection{Validation strategy}\ph{...}
+\subsection{Results}\ph{...}
+\subsection{Interpretation}\ph{...}
+\subsection{Discussion (for Q\&A)}\ph{...}
+
+\section{Task 8 \ph{— [title]}}
+\subsection{Objective}\ph{...}
+\subsection{Mathematical formulation}\ph{...}
+\subsection{Derivation}\ph{...}
+\subsection{Algorithm and implementation}\ph{...}
+\subsection{Validation strategy}\ph{...}
+\subsection{Results}\ph{...}
+\subsection{Interpretation}\ph{...}
+\subsection{Discussion (for Q\&A)}\ph{...}
+
+% =====================================================================
+%  17.  CROSS-TASK SYNTHESIS
+% =====================================================================
+\section{Cross-Task Synthesis}
+\subsection{Shared computational primitives}
+\ph{Identify the matrices / graphs / estimators reused across tasks. Confirms the report is one coherent model, not eight unrelated ones.}
+
+\subsection{Consistency between tasks}
+\ph{Where T$i$ and T$j$ touch the same quantity, do their numbers agree? If not, why?}
+
+\subsection{Composite findings}
+\ph{Insights that no single task produces but several tasks together imply.}
+
+% =====================================================================
+%  18.  EXPLORATORY ANALYSES
+% =====================================================================
+\section{Exploratory Analyses}
+\subsection{Alternative formulations}
+\ph{Each one: motivation, change, what it produced, why it was or wasn't adopted.}
+
+\subsection{Robustness checks}
+\ph{Vary inputs and assumptions; record what stayed stable.}
+
+\subsection{Hypothesis exploration}
+\ph{Non-prescribed questions you asked of the data.}
+
+\subsection{Counterfactual scenarios}
+\ph{What would the answer have been if some condition were different?}
+
+\subsection{Failure mode analysis}
+\ph{Cases where the model gives an absurd or unstable answer — and what the team would do about them.}
+
+\subsection{Findings from chasing the data}
+\ph{Surprises, anomalies, sub-stories worth telling in the oral presentation but cut from the 10-page report.}
+
+% =====================================================================
+%  19.  SENSITIVITY & STABILITY ANALYSIS
+% =====================================================================
+\section{Sensitivity \& Stability Analysis}
+\subsection{Parameter perturbation}\ph{...}
+\subsection{Threshold sweeps}\ph{...}
+\subsection{Bootstrap and resampling stability}\ph{...}
+\subsection{Numerical-stability checks}\ph{...}
+
+% =====================================================================
+%  20.  VALIDATION & VERIFICATION
+% =====================================================================
+\section{Validation \& Verification}
+\subsection{Synthetic data validation}\ph{Generate data with known ground truth; show the method recovers it.}
+\subsection{Cross-method agreement}\ph{Where two methods can attack the same task, run both and compare.}
+\subsection{External benchmarks}\ph{If applicable: a published dataset / known answer the method should reproduce.}
+
+% =====================================================================
+%  21–24.  LIMITATIONS / STRENGTHS / CONCLUSIONS / FUTURE WORK
+% =====================================================================
+\section{Limitations}
+\ph{Honest list. Each limitation gets one or two sentences and (if any) the mitigating evidence.}
+
+\section{Strengths}
+\ph{What this approach does that an obvious baseline does not.}
+
+\section{Conclusions}
+\ph{What the eight tasks taken together answer; what the exploratory work added.}
+
+\section{Recommendations \& Future Work}
+\ph{If we had another week / month / dataset, what would we do?}
+
+% =====================================================================
+%  25.  REFERENCES
+% =====================================================================
+\section{References}
+\addcontentsline{toc}{section}{References}
+\begin{enumerate}[leftmargin=*, label={[\arabic*]}]
+\item \ph{Author, Title, Venue, Year. URL.}
+\item \ph{...}
+\item \ph{...}
+\end{enumerate}
+
+% =====================================================================
+%  APPENDICES
+% =====================================================================
+\appendix
+\section{Full Mathematical Derivations}\ph{Every step of every derivation hinted at in the body.}
+\section{Algorithms \& Pseudocode}\ph{Each algorithm in pseudo-code with complexity analysis.}
+\section{Data Tables}\ph{Full result tables (the body only shows summaries).}
+\section{Additional Figures}\ph{Plots that did not fit in the body.}
+\section{Selected Code Listings}
+\begin{lstlisting}
+# placeholder: paste the most diagnostic snippets here
+def example():
+    return None
+\end{lstlisting}
+\section{AI Prompt Log Summary}\ph{Optional: a summary index pointing to the full prompt-log PDF that is uploaded alongside the report.}
+
+\end{document}
