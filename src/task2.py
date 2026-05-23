@@ -5,7 +5,21 @@ TODO: implement Task 2 solution here.
 
 from __future__ import annotations
 
+import csv
+import json
+from pathlib import Path
+
 import numpy as np
+import matplotlib
+matplotlib.use("Agg")
+import matplotlib.pyplot as plt
+from scipy import stats
+from scipy.cluster.hierarchy import linkage, fcluster
+from sklearn.cluster import KMeans
+from sklearn.decomposition import PCA
+from sklearn.ensemble import IsolationForest
+from sklearn.neighbors import NearestNeighbors
+from sklearn.preprocessing import StandardScaler
 
 
 # =============================================================================
@@ -20,6 +34,7 @@ import numpy as np
 # =============================================================================
 
 def main() -> None:
+    # OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
     pass
 
 
