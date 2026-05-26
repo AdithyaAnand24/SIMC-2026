@@ -1,0 +1,292 @@
+\documentclass[12pt,a4paper]{article}
+
+\usepackage[a4paper, margin=1in]{geometry}
+\usepackage{mathptmx}                 % Times New Roman
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{mathtools}
+\usepackage{enumitem}
+\usepackage{xcolor}
+\usepackage{tcolorbox}
+\usepackage{titlesec}
+\usepackage{hyperref}
+\hypersetup{colorlinks=true, linkcolor=blue!50!black, urlcolor=blue!50!black}
+
+\titleformat{\section}{\normalfont\Large\bfseries}{\thesection.}{0.5em}{}
+\titleformat{\subsection}{\normalfont\large\bfseries}{\thesubsection)}{0.5em}{}
+
+\newtcolorbox{insight}{
+  colback=blue!4, colframe=blue!40!black, boxrule=0.5pt,
+  left=8pt, right=8pt, top=4pt, bottom=4pt,
+  before skip=8pt, after skip=8pt
+}
+\newtcolorbox{warn}{
+  colback=red!4, colframe=red!50!black, boxrule=0.5pt,
+  left=8pt, right=8pt, top=4pt, bottom=4pt,
+  before skip=8pt, after skip=8pt
+}
+\newtcolorbox{sanity}{
+  colback=green!4, colframe=green!40!black, boxrule=0.5pt,
+  left=8pt, right=8pt, top=4pt, bottom=4pt,
+  before skip=8pt, after skip=8pt
+}
+
+\newcommand{\M}{\mathbb{M}}
+\newcommand{\vnu}{\vec{\nu}}
+\newcommand{\vP}{\vec{P}}
+\renewcommand{\d}{\,\mathrm{d}}
+
+\title{\bfseries SIMCC 2026 --- Learning Guide for Question 1\\ \large Linear Algebra of Markov Matrices (14 points)}
+\author{Walkthrough of parts 1a -- 1h}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section*{How to read this guide}
+
+This is a study companion, not a model answer. For each sub-task you get: (i)~what the question is really asking, (ii)~the mathematical derivation step by step, (iii)~the conceptual insight that earns interpretation marks, and (iv)~common pitfalls. The actual report should be \emph{much shorter}: aim for a few clean lines per part, not pages. The full report is capped at 10 pages and Question 3 should get the lion's share of space.
+
+\section*{Setup recap}
+
+Two competing species with fractional populations $p_1(t), p_2(t) \in [0,1]$, evolved by
+\[
+\begin{pmatrix} p_1(t+1) \\ p_2(t+1) \end{pmatrix}
+= \underbrace{\begin{pmatrix} 1-\epsilon & 0 \\ \epsilon & 1 \end{pmatrix}}_{\M}
+\begin{pmatrix} p_1(t) \\ p_2(t) \end{pmatrix}, \qquad 0 < \epsilon < 1.
+\tag{1}
+\]
+In plain English: at each generation, a fraction $\epsilon$ of type-1 organisms convert into type-2 organisms, and conversions only go one way (no type-2 ever turns back into type-1).
+
+\begin{insight}
+\textbf{Two structural facts about }$\M$ \textbf{that drive the entire question:}
+\begin{enumerate}[label=(\arabic*),leftmargin=*]
+    \item Each \emph{column} of $\M$ sums to $1$: column 1 is $(1-\epsilon) + \epsilon = 1$, column 2 is $0 + 1 = 1$. This is the defining property of a (column-stochastic) Markov matrix, and it is what makes total population conserved (part 1a).
+    \item $\M$ is \emph{lower triangular}. The eigenvalues of any triangular matrix are exactly its diagonal entries, so before computing anything we already know they will be $\{1,\, 1-\epsilon\}$ (part 1b). The derivation is still expected, but the answer should not surprise you.
+\end{enumerate}
+\end{insight}
+
+\section*{1a) Conservation [1 point]}
+
+\paragraph{Goal.} Show that $p_1(t) + p_2(t)$ does not change with $t$.
+
+\paragraph{Proof (direct algebra).} From the recursion,
+\[
+p_1(t+1) + p_2(t+1) \;=\; (1-\epsilon)\,p_1(t) \;+\; \bigl[\epsilon\, p_1(t) + p_2(t)\bigr] \;=\; p_1(t) + p_2(t).
+\]
+So the sum is the same one generation later. By induction on $t$, it is the same at every generation:
+\[
+p_1(t) + p_2(t) \;=\; p_1(0) + p_2(0) \quad \text{for all } t \ge 0.
+\]
+
+\paragraph{Why it works (cleaner argument).} For any column-stochastic matrix $\M$, the row vector $\vec{1}^{\top} = (1,1)$ satisfies $\vec{1}^{\top}\M = \vec{1}^{\top}$, because $\vec{1}^{\top}\M$ just sums the columns. Hence
+\[
+p_1(t+1) + p_2(t+1) \;=\; \vec{1}^{\top}\vP(t+1) \;=\; \vec{1}^{\top}\M\,\vP(t) \;=\; \vec{1}^{\top}\vP(t) \;=\; p_1(t) + p_2(t).
+\]
+This is the same statement, but it makes the role of the column-sum-1 property visible. In the report, either argument is fine; the second is slightly more general and shorter.
+
+\section*{1b) Eigenspectra [2 points]}
+
+\paragraph{Goal.} Find the eigenvalues $\lambda_1, \lambda_2$ and eigenvectors $\vnu_1, \vnu_2$ of $\M$.
+
+\paragraph{Step 1 --- characteristic polynomial.}
+\[
+\M - \lambda I \;=\; \begin{pmatrix} 1-\epsilon-\lambda & 0 \\ \epsilon & 1-\lambda \end{pmatrix},
+\quad
+\det(\M - \lambda I) \;=\; (1-\epsilon-\lambda)(1-\lambda) - 0\cdot\epsilon \;=\; (1-\epsilon-\lambda)(1-\lambda).
+\]
+Setting the determinant to zero yields two roots immediately:
+\[
+\boxed{\lambda_1 = 1, \qquad \lambda_2 = 1-\epsilon.}
+\]
+Ordering by magnitude: since $0 < \epsilon < 1$, we have $1 > 1-\epsilon > 0$, so $\lambda_1$ is \emph{dominant}. This ordering matters for parts 1d--1e.
+
+\paragraph{Step 2 --- eigenvector for $\lambda_1 = 1$.} Solve $(\M - I)\vnu_1 = \vec{0}$:
+\[
+\begin{pmatrix} -\epsilon & 0 \\ \epsilon & 0 \end{pmatrix}\begin{pmatrix} a\\b \end{pmatrix} = \begin{pmatrix} 0\\0 \end{pmatrix}
+\;\Longrightarrow\; -\epsilon a = 0 \;\Rightarrow\; a = 0,\; b \text{ free}.
+\]
+Taking $b=1$,
+\[
+\boxed{\vnu_1 = \begin{pmatrix} 0 \\ 1 \end{pmatrix}.}
+\]
+\begin{sanity}
+\textbf{Sanity check.} $\M\vnu_1 = \begin{pmatrix} (1-\epsilon)\cdot 0 + 0\cdot 1 \\ \epsilon\cdot 0 + 1\cdot 1\end{pmatrix} = \begin{pmatrix} 0\\1\end{pmatrix} = 1\cdot\vnu_1$. \checkmark
+\end{sanity}
+
+\paragraph{Step 3 --- eigenvector for $\lambda_2 = 1-\epsilon$.} Solve $(\M - (1-\epsilon)I)\vnu_2 = \vec{0}$:
+\[
+\begin{pmatrix} 0 & 0 \\ \epsilon & \epsilon \end{pmatrix}\begin{pmatrix} a\\b \end{pmatrix} = \begin{pmatrix} 0\\0 \end{pmatrix}
+\;\Longrightarrow\; \epsilon a + \epsilon b = 0 \;\Rightarrow\; b = -a.
+\]
+Taking $a=1$,
+\[
+\boxed{\vnu_2 = \begin{pmatrix} 1 \\ -1 \end{pmatrix}.}
+\]
+\begin{sanity}
+\textbf{Sanity check.} $\M\vnu_2 = \begin{pmatrix} (1-\epsilon)\cdot 1 + 0\cdot(-1) \\ \epsilon\cdot 1 + 1\cdot(-1)\end{pmatrix} = \begin{pmatrix} 1-\epsilon\\ \epsilon-1\end{pmatrix} = (1-\epsilon)\begin{pmatrix} 1\\-1\end{pmatrix} = \lambda_2\vnu_2$. \checkmark
+\end{sanity}
+
+\paragraph{Interpretation (worth one mark).}
+$\vnu_1 = (0,1)^{\top}$ is the all-type-2 state --- a genuine, physically realisable population. It is the system's fixed point, since once everyone is type-2 no further conversion can occur.
+
+$\vnu_2 = (1,-1)^{\top}$ has a \emph{negative} component, so it is \emph{not} a physically realisable population on its own. It is a ``difference mode'': any deviation of the initial state from the steady state $\vnu_1$ is captured by $\vnu_2$ and decays away at rate $(1-\epsilon)^t$. Recognising this distinction is what separates a mechanical answer from an explained one.
+
+\begin{warn}
+\textbf{Pitfall.} Do not normalise the eigenvectors to unit length unless the question asks for it; the algebra in 1c stays cleaner with $\vnu_1 = (0,1)^{\top}$ and $\vnu_2 = (1,-1)^{\top}$. Any nonzero scalar multiple of an eigenvector is still an eigenvector.
+\end{warn}
+
+\section*{1c) Linear combinations [1 point]}
+
+\paragraph{Setup.} We are told $p_1(0) = \tfrac{1}{2}$. Combined with the conservation law from 1a and the convention that the fractions sum to $1$, we have $p_2(0) = \tfrac{1}{2}$, so
+\[
+\vP(0) = \begin{pmatrix} 1/2 \\ 1/2 \end{pmatrix}.
+\]
+
+\paragraph{Goal.} Find scalars $c_1, c_2$ with $\vP(0) = c_1\vnu_1 + c_2\vnu_2$.
+
+\paragraph{Solve componentwise.}
+\[
+\begin{pmatrix} 1/2 \\ 1/2 \end{pmatrix} \;=\; c_1\begin{pmatrix} 0\\1\end{pmatrix} + c_2\begin{pmatrix} 1\\-1\end{pmatrix} \;=\; \begin{pmatrix} c_2\\ c_1 - c_2 \end{pmatrix}.
+\]
+From the first row, $c_2 = \tfrac{1}{2}$. Plugging into the second row, $c_1 - \tfrac{1}{2} = \tfrac{1}{2}$, so $c_1 = 1$.
+\[
+\boxed{\vP(0) = 1\cdot\vnu_1 + \tfrac{1}{2}\cdot\vnu_2 = \begin{pmatrix} 0\\1\end{pmatrix} + \tfrac{1}{2}\begin{pmatrix} 1\\-1\end{pmatrix}.}
+\]
+
+\begin{insight}
+\textbf{What's the point of decomposing into eigenvectors?} Because $\M\vnu_i = \lambda_i\vnu_i$, applying $\M$ in this basis is just scalar multiplication of each component by its own $\lambda_i$. So a single iteration of the dynamics becomes
+\[
+\M\vP(0) \;=\; c_1\lambda_1\vnu_1 + c_2\lambda_2\vnu_2,
+\]
+and after $t$ iterations the only thing that changes is the exponent on each $\lambda$. This trick collapses the recursion into a closed form, which is what 1d asks for.
+\end{insight}
+
+\section*{1d) Eigenvectors make time evolution easy [2 points]}
+
+\paragraph{Goal.} Closed-form expression for $\vP(t)$ in terms of $c_1, c_2, \vnu_1, \vnu_2, \lambda_1, \lambda_2$.
+
+\paragraph{Derivation.} Starting from $\vP(0) = c_1\vnu_1 + c_2\vnu_2$,
+\[
+\vP(1) = \M\vP(0) = c_1\M\vnu_1 + c_2\M\vnu_2 = c_1\lambda_1\vnu_1 + c_2\lambda_2\vnu_2,
+\]
+and by induction (apply $\M$ again, scalars factor through),
+\[
+\boxed{\vP(t) \;=\; c_1\,\lambda_1^{\,t}\,\vnu_1 \;+\; c_2\,\lambda_2^{\,t}\,\vnu_2.}
+\]
+Substituting our specific values gives
+\[
+\vP(t) \;=\; 1\cdot 1^{\,t}\begin{pmatrix} 0\\1\end{pmatrix} + \tfrac{1}{2}(1-\epsilon)^{\,t}\begin{pmatrix} 1\\-1\end{pmatrix} \;=\; \begin{pmatrix} \tfrac{1}{2}(1-\epsilon)^{t} \\ 1 - \tfrac{1}{2}(1-\epsilon)^{t}\end{pmatrix}.
+\]
+\begin{sanity}
+\textbf{Sanity check at $t=0$:} $\vP(0) = (1/2,\, 1/2)^{\top}$. \checkmark\quad
+Conservation: $p_1(t)+p_2(t) = 1$ for every $t$. \checkmark
+\end{sanity}
+
+\section*{1e) Long-time behaviour [2 points]}
+
+\paragraph{Part (i): limit.} Since $0 < 1-\epsilon < 1$, the geometric factor $(1-\epsilon)^t \to 0$ as $t \to \infty$. Hence the $\vnu_2$ component of $\vP(t)$ vanishes and
+\[
+\vP(t) \;\xrightarrow{\;t\to\infty\;}\; c_1\,\vnu_1 \;=\; \begin{pmatrix} 0\\1\end{pmatrix}.
+\]
+The population settles into the eigenvector of $\M$ with the larger eigenvalue, $\lambda_1 = 1$.
+
+\paragraph{Part (ii): structural reason.} Two complementary explanations, either is acceptable:
+\begin{itemize}[leftmargin=*]
+\item \emph{Algebraic.} The recursion in the eigenbasis is $c_i(t) = \lambda_i^{\,t}\,c_i(0)$. Any eigenvalue with $|\lambda|<1$ shrinks each generation, while $\lambda = 1$ is fixed. After many iterations only the $|\lambda|=1$ modes survive --- in this problem there is just one, namely $\vnu_1$.
+\item \emph{Physical.} The matrix has zero in the $(1,2)$ position, i.e.~no type-2 organism ever becomes type-1. Every generation drains a fraction $\epsilon$ of the remaining type-1 population into type-2 and never reverses. Type-1 therefore decays geometrically and the system ends up entirely in type-2: that is $\vnu_1$.
+\end{itemize}
+
+\begin{insight}
+\textbf{The big idea of the whole question.} ``Find the eigenvector with the largest eigenvalue'' is the same as ``find the long-time fate of the system''. This is exactly the principle that Question~2 abstracts into the Power Method and that Question~3 uses on real spectroscopic data: the dominant eigenvector is what survives.
+\end{insight}
+
+\section*{1f) Numerical validation of parts (d) and (e) [2 points]}
+
+\paragraph{Goal.} Confirm the closed-form expression for $\vP(t)$ matches a direct simulation, and that $\vP(t) \to (0,1)^{\top}$.
+
+\paragraph{What to compute.}
+\begin{enumerate}[label=(\arabic*),leftmargin=*]
+    \item Pick a representative $\epsilon$ (e.g.~$\epsilon = 0.1$). Initial state $\vP(0) = (1/2,\, 1/2)^{\top}$.
+    \item \textbf{Direct simulation:} iterate $\vP(t+1) = \M\vP(t)$ for $t = 0,\dots,T$ (e.g.~$T=100$).
+    \item \textbf{Analytical:} use the closed form $\vP(t) = c_1\vnu_1 + c_2(1-\epsilon)^t\vnu_2$ with $c_1 = 1, c_2 = 1/2$.
+    \item Confirm the two agree to machine precision at every $t$ (max absolute error $< 10^{-12}$).
+    \item Plot $p_1(t)$ and $p_2(t)$ versus $t$ on a single panel. $p_1$ should decay from $1/2$ to $0$, $p_2$ should grow from $1/2$ to $1$.
+\end{enumerate}
+
+\paragraph{Suggested figure for the report.} Two curves on a single plot, log-$y$ axis for $p_1$ would show its geometric decay especially cleanly; a dashed horizontal line at $1$ marks the asymptote of $p_2$.
+
+\begin{warn}
+\textbf{Pitfall.} Don't simulate by computing $\M^t$ as a matrix power and then multiplying. For $t\sim 100$ it works, but it is slower and less stable than iterating $\vP \leftarrow \M\vP$. Iterate.
+\end{warn}
+
+\section*{1g) Time-varying conversion rate [2 points]}
+
+\paragraph{Setup.} Now $\epsilon(t) = \epsilon_0\,e^{-t/t_0}$ decays with $t$, so the matrix is $\M(t) = \begin{pmatrix} 1-\epsilon(t) & 0\\ \epsilon(t) & 1\end{pmatrix}$ and the recursion is $\vP(t+1) = \M(t)\,\vP(t)$.
+
+\paragraph{Key observation.} The eigenvectors $\vnu_1 = (0,1)^{\top}$ and $\vnu_2 = (1,-1)^{\top}$ \emph{do not depend on $\epsilon$}, so they are the same at every $t$. Only the eigenvalues change: at time step $t$ they are $\lambda_1(t) = 1$ and $\lambda_2(t) = 1 - \epsilon(t)$.
+
+\paragraph{Time evolution.} In the (constant) eigenbasis, write $\vP(t) = c_1(t)\vnu_1 + c_2(t)\vnu_2$. Then
+\[
+c_1(t+1) = 1\cdot c_1(t) \quad\text{(constant)}, \qquad c_2(t+1) = \bigl(1-\epsilon(t)\bigr)\,c_2(t).
+\]
+Iterating the second gives a \emph{product}, not a power:
+\[
+c_2(t) \;=\; c_2(0)\,\prod_{s=0}^{t-1}\bigl(1-\epsilon(s)\bigr).
+\]
+Hence the closed form for part (g) is
+\[
+\boxed{\;\vP(t) \;=\; c_1\,\vnu_1 \;+\; c_2\left[\prod_{s=0}^{t-1}\bigl(1-\epsilon_0\,e^{-s/t_0}\bigr)\right]\vnu_2.\;}
+\]
+The change from part (d) is exactly the replacement of the geometric factor $(1-\epsilon)^t$ by the product $\prod_{s=0}^{t-1}(1-\epsilon(s))$.
+
+\paragraph{The limit $t\to\infty$ (where the twist lives).} For small $\epsilon(s)$, $\ln(1-\epsilon(s)) \approx -\epsilon(s)$, so
+\[
+\ln\!\prod_{s=0}^{\infty}\bigl(1-\epsilon(s)\bigr) \;\approx\; -\sum_{s=0}^{\infty}\epsilon_0\,e^{-s/t_0} \;=\; -\,\frac{\epsilon_0}{1 - e^{-1/t_0}} \;\approx\; -\epsilon_0\,t_0 \;\text{(for } t_0\gg 1\text{)}.
+\]
+This sum is \emph{finite}, so the infinite product converges to a finite, \textbf{non-zero} value:
+\[
+\prod_{s=0}^{\infty}(1-\epsilon(s)) \;\to\; e^{-\epsilon_0 t_0} \;\;(\text{approximately, for } t_0 \gg 1).
+\]
+\begin{insight}
+\textbf{The interesting consequence.} With constant $\epsilon$, the system always reaches the all-type-2 steady state. With $\epsilon(t)$ \emph{decaying fast enough}, the conversion machinery shuts off before all type-1 organisms are converted, so the system gets ``frozen'' at an intermediate state with both species present:
+\[
+\vP(\infty) \;=\; c_1\,\vnu_1 \;+\; c_2\, e^{-\epsilon_0 t_0}\,\vnu_2 \;\neq\; \vnu_1.
+\]
+The decay rate competing with the conversion rate is the physics: if $\epsilon_0 t_0$ is large (slow decay), the survivor population is small; if $\epsilon_0 t_0$ is small (fast decay), most type-1 survives.
+\end{insight}
+
+\section*{1h) Numerical validation of part (g) [2 points]}
+
+\paragraph{Goal.} Same as 1f, but with the time-varying $\epsilon(t) = \epsilon_0\,e^{-t/t_0}$.
+
+\paragraph{What to compute.}
+\begin{enumerate}[label=(\arabic*),leftmargin=*]
+    \item Pick representative $\epsilon_0$ and $t_0$ (e.g.~$\epsilon_0 = 0.5$, $t_0 = 10$, so the product limit $e^{-\epsilon_0 t_0} = e^{-5} \approx 0.0067$ is small but nonzero).
+    \item \textbf{Direct simulation:} at each step, compute $\epsilon(t)$, build $\M(t)$, and update $\vP(t+1) = \M(t)\vP(t)$.
+    \item \textbf{Analytical:} accumulate the product $\Pi(t) = \prod_{s=0}^{t-1}(1-\epsilon(s))$ and compute $\vP(t) = c_1\vnu_1 + c_2\,\Pi(t)\,\vnu_2$.
+    \item Verify the two agree to machine precision.
+    \item Plot $p_1(t)$ and $p_2(t)$ on the same axes as in 1f, on top of the constant-$\epsilon$ curve from 1f for comparison.
+\end{enumerate}
+
+\paragraph{What the plot should show.}
+\begin{itemize}[leftmargin=*]
+    \item For constant $\epsilon$: $p_1(t) \to 0$, $p_2(t) \to 1$.
+    \item For time-decaying $\epsilon(t)$: $p_1(t)$ decays for a while but \emph{plateaus at a positive value} $\tfrac{1}{2}e^{-\epsilon_0 t_0}$ (approximately); $p_2(t)$ correspondingly plateaus below $1$. Show this plateau on a log-$y$ axis.
+\end{itemize}
+
+\paragraph{Justification for using this comparison in the report.} The juxtaposition makes the qualitative change visible at a glance: a conversion rate that switches off in finite time leaves a residue of type-1 forever. This is the headline result of 1g and the figure is exactly the right vehicle for the four interpretation marks in 1g+1h.
+
+\section*{Summary: how Q1 leads into Q2 and Q3}
+
+\begin{itemize}[leftmargin=*]
+    \item \textbf{Q1's lesson} is that the long-time behaviour of a linear system is read off from the eigenvector with the largest eigenvalue. The other eigenvectors describe transient deviations that geometrically decay.
+    \item \textbf{Q2 generalises this} into the \emph{Power Method}: when the dominant eigenvalue is unique, iterating any vector by the matrix converges to that eigenvector. Q2 also asks you to make the convergence rate quantitative (it is the spectral gap $|\lambda_2/\lambda_1|$ from Q1), and to extend the idea to rectangular matrices via SVD.
+    \item \textbf{Q3 applies the same machinery to a real $1000\times 3041$ infrared spectroscopy dataset}: the dominant eigenvectors of the covariance matrix are the directions of greatest spectroscopic variation, which separate the unknown samples into clusters. Q1's Markov example is the toy that makes this principle visible; Q3 is where it pays off.
+\end{itemize}
+
+\vfill
+\hrule
+\smallskip
+\noindent\textit{End of guide. The actual report should be much terser than this document --- aim for a few clean lines per part. This guide is meant to make the underlying ideas obvious, not to be a template for length.}
+
+\end{document}
