@@ -1,2 +1,7 @@
 .DS_Store
 **/.DS_Store
+
+# Large / local-only audiobook artifacts (keep out of the repo)
+doc/Task3_audiobook.wav
+doc/Task3_audiobook.ssml
+doc/Task3_audiobook_script.txt
