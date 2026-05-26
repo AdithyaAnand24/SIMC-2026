@@ -83,6 +83,42 @@ standing record; keep them in sync with the coloured tags in the PDF.
 
 ## 7. Changelog (newest first)
 
+### 2026-05-27 (later) — Q3h added everywhere; submission report rebuilt to 10 pages
+- Read the official challenge PDF and added **Q3(h)** "The forgetful taste tester" (6 pts, the
+  synthesis question) to all reports and notebooks. Answer: **≈ 25 unique food samples**
+  (stable cluster count from 3e/3f, agreeing via 3g), with the ~10 named molecules showing up as
+  the k*=8 signal eigenvalues. Part (h)(ii) ties every earlier part together.
+- Preliminary report (`SIMC2026_Preliminary_Q1_Q2_Q3.tex`): added §3.8 (h); now Q3 (a)–(h)
+  complete. Still 15 pages.
+- Submission (`../SIMC2026_Submission_Q1_Q2_Q3.tex`): **rewritten** as a full task-by-task worked
+  report with subsections for every part (Q1 a–h, Q2 a–e, Q3 a–h), true **Times New Roman 12pt**
+  via `newtx` (was `mathptmx`), humanised prose, key figures + code excerpts. Tuned to exactly
+  **10 pages** (firm cap): 1.8 cm margins, single spacing, figures sized down, redundant standalone
+  Gram scatter dropped (its scores appear in the 3g comparison figure).
+- `src/task_3.ipynb` and `src/main.ipynb`: appended a Q3h synthesis markdown cell.
+- NOTE: the preliminary PDF was open in a viewer at build time and could not be overwritten; the
+  current build is `_prelim_tmp.pdf` until the viewer is closed.
+
+### 2026-05-27 — Question 3 added (new report: `SIMC2026_Preliminary_Q1_Q2_Q3.tex`)
+- Created `SIMC2026_Preliminary_Q1_Q2_Q3.tex` by extending the Q1/Q2 draft with a full
+  **Section 3** (Design, Covariance & Gram Matrices). Q1/Q2 content is unchanged. Compiled
+  with **MiKTeX pdflatex** on Windows: 15 pages, exit 0.
+- Source: `src/task_3.ipynb` (parts a–g). Parts (a)–(e) consolidate the earlier
+  `doc/task 3 anand/Q3_report.tex`; parts **(f)** Gram-matrix clustering and **(g)**
+  covariance-vs-Gram comparison are written up for the first time.
+- Q1(f)/Q1(h): the two MISS placeholders from 26 May are now **VERIFIED** — numerical
+  validation implemented in `src/task1/task1.ipynb` (figures `task1f_trajectories.png`,
+  `task1h_trajectories.png` embedded). Closed forms match direct iteration to machine precision.
+- New review tag `\verified{}` (green) for claims independently checked in code.
+- All 11 figures copied space-free to `doc/FINAL/figs/` (originals in `data/output/TASK 3/`);
+  `\graphicspath` points there to avoid the space in "TASK 3".
+- Q3 tags logged: **CORRECTED** prompt's $M=3041$ vs the file's true $3401$ (digit
+  transposition; array stored transposed). **EXTRA** the second error (36 high-norm outliers
+  beyond the 40 empties) + its isolated-cluster proof; the "95% rule is misleading, elbow
+  $k^\star=8$ is honest" analysis; parts (f) and (g). **VERIFIED** $\tr C\approx7.90=\sum\lambda_i$;
+  Gram top-8 eigenvalues match covariance to $10^{-6}$; 25 clusters in both spaces (stable over
+  radii $6$–$12\times$); $|Z|=|Z_{\mathrm g}|$ to $\approx10^{-14}$ (PC1, PC4 sign-flipped).
+
 ### 2026-05-26 — compiled to PDF
 - Compiled with **tectonic 0.16.9** (installed via `brew install tectonic` — no sudo, so MacTeX was not needed). Output: `report.pdf` (also `SIMC2026_Preliminary_Q1_Q2.pdf`), **7 pages**, exit 0.
 - Build fix 1: defined missing macro `\yy` (`\mathbf{y}`) — used in the Q2(a) proof but not declared. Was the "Undefined control sequence" error.
