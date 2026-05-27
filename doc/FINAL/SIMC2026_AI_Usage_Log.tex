@@ -1,0 +1,248 @@
+% ======================================================================
+%  SIMC 2026  ---  AI USAGE LOG  (companion to the submission report)
+%  Endeavour Track.  Required by Instructions to Participants 2026:
+%  the prompt-and-response transcript of all AI assistance.
+%
+%  official companion filename: SIMC<ID>_<schoolAbbr>_ailog.pdf
+%  Team: K. Vishnu Kumar . Adithya Kesan Jayakanth . Adithya Anand
+%  Compile: pdflatex.
+% ======================================================================
+\documentclass[11pt,a4paper]{article}
+
+\usepackage[a4paper, margin=2.0cm, headheight=14pt]{geometry}
+\usepackage{mathptmx}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath,amssymb}
+\DeclareMathOperator{\tr}{tr}
+\usepackage{xcolor}
+\usepackage{mdframed}
+\usepackage{listings}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+\usepackage[hidelinks]{hyperref}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{4pt}
+\linespread{1.05}
+
+\pagestyle{fancy}\fancyhf{}
+\fancyhead[L]{\footnotesize SIMC 2026 \textperiodcentered\ AI Usage Log}
+\fancyhead[R]{\footnotesize \thepage}
+\fancyfoot[C]{\footnotesize K.\ Vishnu Kumar \textperiodcentered\ Adithya Kesan Jayakanth \textperiodcentered\ Adithya Anand}
+\renewcommand{\headrulewidth}{0.4pt}
+
+% colours
+\definecolor{promptbg}{rgb}{0.93,0.95,1.00}
+\definecolor{outbg}{gray}{0.96}
+\definecolor{verbg}{rgb}{0.92,0.98,0.92}
+\definecolor{codecmt}{rgb}{0.30,0.45,0.30}
+\definecolor{codekw}{rgb}{0.10,0.10,0.60}
+
+\lstdefinestyle{py}{language=Python, basicstyle=\ttfamily\scriptsize,
+  commentstyle=\color{codecmt}\itshape, keywordstyle=\color{codekw}\bfseries,
+  showstringspaces=false, breaklines=true, columns=fullflexible, aboveskip=2pt, belowskip=2pt}
+\lstset{style=py}
+
+% --- entry boxes ---
+\newmdenv[backgroundcolor=promptbg, linecolor=blue!40, linewidth=0.6pt,
+  innertopmargin=4pt, innerbottommargin=4pt, skipabove=4pt, skipbelow=2pt]{promptbox}
+\newmdenv[backgroundcolor=outbg, linecolor=gray!50, linewidth=0.6pt,
+  innertopmargin=4pt, innerbottommargin=4pt, skipabove=2pt, skipbelow=2pt]{outbox}
+\newmdenv[backgroundcolor=verbg, linecolor=green!45!black, linewidth=0.6pt,
+  innertopmargin=4pt, innerbottommargin=4pt, skipabove=2pt, skipbelow=4pt]{verbox}
+
+\titleformat{\section}{\large\bfseries}{\thesection.}{0.5em}{}
+\newcommand{\logentry}[1]{\subsection*{#1}}
+
+\begin{document}
+
+\begin{center}
+{\Large\bfseries SIMC 2026 --- Declaration and Log of AI Assistance}\\[2pt]
+{\normalsize K.\ Vishnu Kumar \ \textperiodcentered\ Adithya Kesan Jayakanth \ \textperiodcentered\ Adithya Anand}\\[1pt]
+{\small Endeavour Track \ \textperiodcentered\ Team ID: [INSERT TEAM ID] \ \textperiodcentered\ 27 May 2026}
+\end{center}
+\rule{\linewidth}{0.4pt}
+
+\section{Declaration}
+This document is the companion AI-usage log required by the \emph{Instructions to Participants
+2026}. We used one AI assistant --- \textbf{Claude Opus 4.7}, accessed through the Claude Code
+command-line tool --- and only for clearly bounded, \emph{non-decisional} support tasks. The
+substance of every solution --- the mathematical modelling, the proofs, the choice of methods,
+the validation numbers, and the written interpretations --- was produced and owned by the team.
+\textbf{Every AI suggestion was read, checked against our own working, edited where necessary,
+and re-executed by us before it was accepted into the project.} Nothing below was pasted in
+unread.
+
+The entries that follow are a curated record of the recurring ways we used the assistant, each
+giving (i) the instruction we gave, (ii) a representative excerpt of what it returned, and (iii)
+exactly what we verified or changed before keeping it. The corresponding artifacts are in the
+submitted repository (\texttt{src/}, \texttt{doc/}, \texttt{data/output/}).
+
+\section{What AI was --- and was not --- used for}
+\begin{center}\small
+\begin{tabular}{@{}p{0.46\linewidth}p{0.50\linewidth}@{}}
+\hline
+\textbf{Used for (assistive, verified)} & \textbf{NOT used for (team only)} \\
+\hline
+Drafting code comments \& docstrings & Deriving the proofs (Q1, Q2) \\
+Wording plot titles, axis labels, captions & Choosing the cleaning / clustering method \\
+Plotting \& \LaTeX{} boilerplate from our spec & Reading off any result or validation number \\
+Re-checking our algebra for slips & The written interpretation of every result \\
+Tightening report prose & The decision of what to claim and submit \\
+\hline
+\end{tabular}
+\end{center}
+
+\section{Log of AI-assisted steps}
+
+% ----------------------------------------------------------------------
+\logentry{Entry 1 --- Internal code documentation (docstrings)}
+\textbf{Prompt.}
+\begin{promptbox}
+``Add a module-purpose docstring to the Task~1 validation cells. Explain the two-track check
+(direct iteration vs.\ closed form), state which variables each cell defines for later cells,
+and note the machine-precision assertion. Do not change any of the computation.''
+\end{promptbox}
+\textbf{AI output (excerpt, now in \texttt{src/task1/task1.ipynb}).}
+\begin{outbox}
+\begin{lstlisting}
+'''Purpose. Confirm the closed-form P(t)=c1*v1+c2*(1-eps)^t*v2 (1d) and its limit (1e)
+by checking against a brute-force iteration that uses no analytical input.
+Method: Track A iterates P(t+1)=M@P(t); Track B evaluates the eigenmode formula.
+Validation: max|A-B| < 1e-10 (asserted). Defines t, c1, c2, v1, v2, P_num.'''
+\end{lstlisting}
+\end{outbox}
+\textbf{Team verification.}
+\begin{verbox}
+We confirmed every claim in the docstring against the code (variable names, the $<10^{-10}$
+bound, the cell dependencies), re-ran the notebook end-to-end (all assertions pass), and kept the
+computation byte-for-byte unchanged. The docstring is description only.
+\end{verbox}
+
+% ----------------------------------------------------------------------
+\logentry{Entry 2 --- Plot labelling and captions}
+\textbf{Prompt.}
+\begin{promptbox}
+``Suggest concise axis labels, a title, and a one-sentence caption for the eigenvalue-spectrum
+figure (linear and log panels) that name the elbow at $k^\star=8$ and the noise floor. Maths in
+the labels should be valid \LaTeX.''
+\end{promptbox}
+\textbf{AI output (excerpt).}
+\begin{outbox}
+\begin{lstlisting}
+xlabel: "component index k"     ylabel: r"eigenvalue $\lambda_k$"
+title : "Eigenvalue spectrum (log scale)"   axvline at k*=8 (label "elbow k* = 8")
+caption: "Eight signal eigenvalues, then a flat noise floor: a sharp elbow at k*=8."
+\end{lstlisting}
+\end{outbox}
+\textbf{Team verification.}
+\begin{verbox}
+We supplied the value $k^\star=8$ (computed by our own code as the largest multiplicative drop
+$\lambda_8/\lambda_9\approx4.1$); the assistant only phrased the labels. We checked the figure
+renders and the numbers match our table before using it.
+\end{verbox}
+
+% ----------------------------------------------------------------------
+\logentry{Entry 3 --- Plotting infrastructure from our specification (the Q3g figure)}
+\textbf{Prompt.}
+\begin{promptbox}
+``We have covariance-space scores \texttt{Z} and Gram-space scores \texttt{Zg} (both $924\times4$).
+Build a figure that proves they are the same point cloud up to a per-axis sign: a
+$|\text{correlation}|$ heatmap (4$\times$4) plus the six PC-pair scatters overlaid, with the Gram
+scores sign-aligned to the covariance scores. Save to \texttt{data/output/TASK 3/q3g\_compare.png}.''
+\end{promptbox}
+\textbf{AI output (excerpt, now cell 28 of \texttt{src/task\_3.ipynb}).}
+\begin{outbox}
+\begin{lstlisting}
+signs  = np.sign(np.diag(Mcorr))     # +-1 per matched component
+Zg_al  = Zg * signs                  # flip each Gram axis to match 3e
+# left: imshow(|Mcorr|) heatmap ; right: 6 overlaid PC-pair scatters
+print("max |Z - Zg(sign-aligned)| =", float(np.abs(Z - Zg_al).max()))  # ~1e-14
+\end{lstlisting}
+\end{outbox}
+\textbf{Team verification.}
+\begin{verbox}
+The mathematical claim is ours (the SVD argument $\mathbf Z=\mathbf U\Sigma=\mathbf Z_{\mathrm g}$,
+Q3g). We ran the cell and independently confirmed the diagnostics it prints --- diagonal
+$|\text{corr}|=1$, off-diagonal $0$, and $|\mathbf Z|=|\mathbf Z_{\mathrm g}|$ to $\approx10^{-14}$
+with PC1 and PC4 sign-flipped --- before trusting the figure. The plot only \emph{visualises} a
+result we had already proved.
+\end{verbox}
+
+% ----------------------------------------------------------------------
+\logentry{Entry 4 --- \LaTeX{} report scaffolding and prose tightening}
+\textbf{Prompt.}
+\begin{promptbox}
+``Set up a 12pt Times, A4, single-spaced \LaTeX{} skeleton for a $\le$10-page task-first report
+(executive summary, assumptions/notation, one section per task, exploratory, validation,
+references, AI-log). Then tighten our executive-summary paragraph to $\le$8 lines without adding
+any new claim.''
+\end{promptbox}
+\textbf{AI output (excerpt).}
+\begin{outbox}
+\begin{lstlisting}
+\documentclass[12pt,a4paper]{article}  \usepackage{mathptmx} ...
+\section{Executive Summary} % one tight paragraph, names the headline number
+\end{lstlisting}
+\end{outbox}
+\textbf{Team verification.}
+\begin{verbox}
+We wrote the content; the assistant supplied formatting and condensed our wording. We compared
+the tightened paragraph line by line against our draft to confirm no claim was added, dropped, or
+altered, then compiled and proofread the PDF ourselves.
+\end{verbox}
+
+% ----------------------------------------------------------------------
+\logentry{Entry 5 --- Re-checking our algebra for slips}
+\textbf{Prompt.}
+\begin{promptbox}
+``Here is our Q1(g) result for a time-varying rate. Sanity-check the algebra: should the
+$\vec\nu_2$ factor be $(1-\varepsilon(t))^{t}$ or the product $\prod_{s<t}(1-\varepsilon(s))$?
+Explain which and why --- do not rewrite our solution.''
+\end{promptbox}
+\textbf{AI output (excerpt).}
+\begin{outbox}
+``Because $\mathbb M(t)$ changes each step but shares the same $\varepsilon$-independent
+eigenvectors, the $\vec\nu_2$ mode picks up one factor $(1-\varepsilon(s))$ \emph{per step} ---
+hence the ordered product, not the power. The power form would assume a single fixed matrix.''
+\end{outbox}
+\textbf{Team verification.}
+\begin{verbox}
+This matched the correction we had already made in our notes (logged in
+\texttt{doc/FINAL/REPORT/changelog.md}, item M1). We then \emph{proved} the product form
+ourselves and validated it numerically in \texttt{task1.ipynb} (the frozen residue
+$c_2\Pi_\infty$); the assistant's reply was used only as a second pair of eyes, not as the source
+of the result.
+\end{verbox}
+
+% ----------------------------------------------------------------------
+\logentry{Entry 6 --- Numerical sanity checks we asked it to run}
+\textbf{Prompt.}
+\begin{promptbox}
+``Confirm two consistency checks on our covariance computation: (a) $\tr C$ equals
+$\sum_i\lambda_i$; (b) the top-8 Gram eigenvalues equal the top-8 covariance eigenvalues. Report
+the numbers, do not interpret them.''
+\end{promptbox}
+\textbf{AI output (excerpt).}
+\begin{outbox}
+\begin{lstlisting}
+sum(eigenvalues) = 7.9007  vs  tr(C) = 7.9007
+gram-vs-cov top-8 match (np.allclose, atol=1e-6): True
+\end{lstlisting}
+\end{outbox}
+\textbf{Team verification.}
+\begin{verbox}
+We re-ran both checks ourselves from \texttt{src/task\_3.ipynb} and reproduced the same numbers.
+These are invariance checks (rotation invariance of the trace; the Q2(d) shared-spectrum theorem)
+that we use as evidence in the report; the interpretation in the report is entirely our own.
+\end{verbox}
+
+\section{Integrity statement}
+We affirm that the analytical reasoning, the modelling and method choices, the numerical results,
+and the written interpretations in our submission are the team's own work. AI assistance was
+limited to documentation, presentation, plotting/\LaTeX{} boilerplate, prose editing, and
+second-pass checking of work we had already done, as logged above. No result was reported that we
+did not independently reproduce, and no text was submitted that we did not review and edit.
+
+\end{document}
