@@ -1,0 +1,15 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git clone *)",
+      "Bash(git -C \"C:/Users/sanan/OneDrive/Desktop/Simc_2026/SIMC-2026\" remote -v)",
+      "Bash(curl -sL -o \"C:/Users/sanan/OneDrive/Desktop/Simc_2026/SIMC-2026/data/input/SIMC_2026_Endeavour_Challenge.pdf\" \"https://coursemology3.s3.ap-southeast-1.amazonaws.com/uploads/attachments/32/d6/61/32d66109b1bd74e4e1ec46ba22b901106f3b4bdc571d828cc39e764e1af0fef2.pdf?response-content-disposition=inline%3B%20filename%3D%22SIMC_2026_Endeavour_Challenge.pdf%22&X-Amz-Expires=603900&X-Amz-Date=20260526T010033Z&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIA2EQN7A45RM2X7VPX%2F20260526%2Fap-southeast-1%2Fs3%2Faws4_request&X-Amz-SignedHeaders=host&X-Amz-Signature=35e44316bac5a8e0fc1810b786d108bdf997d0c51a9a9aa447e0f2baf02540d9\")",
+      "Bash(xxd)",
+      "Bash(git add *)",
+      "Bash(git commit -m '@ *)",
+      "Bash(git push *)",
+      "Bash(git commit *)",
+      "Bash(git pull *)"
+    ]
+  }
+}
